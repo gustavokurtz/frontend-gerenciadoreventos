@@ -7,6 +7,7 @@ import Header from "./components/Header";
 
 function App() {
   return (
+    
     <Router>
       <Header />
       <Routes>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/subscription" element={<Subscription />} /> {/* Nova rota */}
       </Routes>
     </Router>
+    
   );
 }
 
