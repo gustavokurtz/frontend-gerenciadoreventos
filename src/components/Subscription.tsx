@@ -114,12 +114,12 @@ const Subscription = () => {
           {loading ? "Cadastrando..." : "Criar Inscrição"}
         </button>
       </form>
-      {userId && (
-        <p className="text-center text-gray-700">
-          🏆 Seu link de afiliado:{" "}
-          <strong>{`https://revinfinity.pro/subscription/${prettyName}/${userId}`}</strong>
-        </p>
-      )}
+      {/* {userId && (
+        // <p className="text-center text-gray-700">
+        //   🏆 Seu link de afiliado:{" "}
+        //   <strong>{`https://revinfinity.pro/subscription/${prettyName}/${userId}`}</strong>
+        // </p>
+      )} */}
     </div>
   );
 };
