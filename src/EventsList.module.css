@@ -1,0 +1,192 @@
+/* EventsList.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-bg: #000; /* Fundo preto */
+  --card-bg: #111; /* Fundo dos cards preto mais suave */
+  --border-color: #620096; /* Roxo das bordas */
+  --text-color: #620096; /* Roxo do texto */
+  --text-light: #f5f5f5;
+  --button-bg: #620096; /* Roxo do botão */
+  --button-hover: #7a00c7; /* Roxo mais vibrante no hover */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--primary-bg);
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.eventCard {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 35px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-in-out forwards;
+}
+
+.eventCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.eventTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.eventLocation {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.eventDetails {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.copyPrettyName {
+  cursor: pointer;
+  color: var(--button-bg); /* Roxo */
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.copyPrettyName:hover {
+  color: var(--button-hover); /* Roxo mais vibrante no hover */
+}
+
+
+/* Estilos do ranking */
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--primary-bg);
+  color: var(--text-light);
+}
+
+input:focus {
+  outline: 2px solid var(--button-bg);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+}
+
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.button {
+  display: block;
+  margin-top: 15px;
+  background: var(--button-bg);
+  color: white;
+  padding: 12px;
+  margin-left: 30px;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.button:hover {
+  background: var(--button-hover);
+  transform: translateY(-3px);
+}
+
+/* Estilos do formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--primary-bg);
+  color: var(--text-light);
+}
+
+input:focus {
+  outline: 2px solid var(--button-bg);
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* 🔥 Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
