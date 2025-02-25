@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "../EventsList.module.css";
 
 interface Event {
   eventId: number;
@@ -33,44 +32,52 @@ const EventsList = () => {
       });
   }, []);
 
-  // Função para copiar o prettyName ao clicar
   const handleCopy = (prettyName: string) => {
     navigator.clipboard.writeText(prettyName);
     setCopiedEvent(prettyName);
-
     setTimeout(() => {
       setCopiedEvent(null);
-    }, 2000); // Reseta o aviso após 2 segundos
+    }, 2000);
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>🎟 Lista de Eventos</h2>
-
-      {loading && <p className="text-center text-blue-500">Carregando...</p>}
+    <div className="max-w-4xl mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">🎟 Lista de Eventos</h2>
+      {loading && <p className="text-center text-[#8234E9]">Carregando...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
-
-      <div className={styles.eventGrid}>
+      <div className="grid grid-cols-1 gap-4">
         {data.map((event, index) => (
-          <div key={event.eventId} className={styles.eventCard} style={{ animationDelay: `${index * 0.1}s` }}>
-            <h3 className={styles.eventTitle}>{event.title}</h3>
-            <p className={styles.eventLocation}>📍 {event.location}</p>
-
-            <p 
-              className={styles.copyPrettyName} 
+          <div
+            key={event.eventId}
+            className="bg-white shadow-md rounded p-4"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+            <p className="text-gray-700 mb-2">📍 {event.location}</p>
+            <p
+              className="text-[#8234E9] cursor-pointer mb-2"
               onClick={() => handleCopy(event.prettyName)}
               title="Clique para copiar"
             >
-              🔗 Pretty Name: <strong>{event.prettyName}</strong> {copiedEvent === event.prettyName ? "✅ Copiado!" : "📋"}
+              📋 Pretty Name: <strong>{event.prettyName}</strong>{" "}
+              {copiedEvent === event.prettyName ? "✅ Copiado!" : ""}
             </p>
-
-            <div className={styles.eventDetails}>
-              <p>🗓 <strong>Data:</strong> {event.startDate} - {event.endDate}</p>
-              <p>⏰ <strong>Horário:</strong> {event.startTime} - {event.endTime}</p>
-              <p className={styles.price}>💰 R$ {event.price.toFixed(2)}</p>
+            <div className="text-gray-700 mb-2">
+              <p>
+                🗓 <strong>Data:</strong> {event.startDate} - {event.endDate}
+              </p>
+              <p>
+                ⏰ <strong>Horário:</strong> {event.startTime} -{" "}
+                {event.endTime}
+              </p>
+              <p className="font-bold">💰 R$ {event.price.toFixed(2)}</p>
             </div>
-
-            <a href="#" className={styles.button}>Ver Detalhes</a>
+            <a
+              href="#"
+              className="inline-block bg-[#8234E9] hover:bg-[#8234E9] text-white font-bold py-2 px-4 rounded"
+            >
+              Ver Detalhes
+            </a>
           </div>
         ))}
       </div>

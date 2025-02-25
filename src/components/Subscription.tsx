@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "../EventsList.module.css";
 
 interface SubscriptionData {
   name: string;
@@ -8,7 +7,10 @@ interface SubscriptionData {
 }
 
 const Subscription = () => {
-  const [formData, setFormData] = useState<SubscriptionData>({ name: "", email: "" });
+  const [formData, setFormData] = useState<SubscriptionData>({
+    name: "",
+    email: "",
+  });
   const [prettyName, setPrettyName] = useState("");
   const [userId, setUserId] = useState<number | undefined>();
   const [message, setMessage] = useState<string | null>(null);
@@ -28,24 +30,22 @@ const Subscription = () => {
       setMessage("❌ Você precisa inserir o nome do evento.");
       return;
     }
-
     setLoading(true);
     setMessage(null);
-
     try {
       const url = `https://revinfinity.pro/subscription/${prettyName}`;
       const response = await axios.post(url, formData);
-
-      console.log("Resposta da API:", response.data); // DEBUG
-
       if (response.status === 200) {
-        const userIdFromApi = response.data?.subscriptionNumber; // Pegando o ID correto
-
+        const userIdFromApi = response.data?.subscriptionNumber;
         if (userIdFromApi) {
           setUserId(userIdFromApi);
-          setMessage(`✅ Inscrição realizada com sucesso! Seu ID: ${userIdFromApi}`);
+          setMessage(
+            `✅ Inscrição realizada com sucesso! Seu ID: ${userIdFromApi}`
+          );
         } else {
-          setMessage("❌ Inscrição realizada, mas não foi possível encontrar o ID do usuário.");
+          setMessage(
+            "❌ Inscrição realizada, mas não foi possível encontrar o ID do usuário."
+          );
         }
       } else {
         setMessage("❌ Erro ao realizar a inscrição.");
@@ -59,35 +59,65 @@ const Subscription = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>📝 Inscrição no Evento</h2>
-
-      {message && <p className={styles.eventLocation}>{message}</p>}
-
-      <form onSubmit={handleSubscription} className={styles.eventCard}>
-        <label className={styles.eventTitle}>
-          🔍 PrettyName do Evento:
-          <input type="text" value={prettyName} onChange={(e) => setPrettyName(e.target.value)} required />
-        </label>
-
-        <label className={styles.eventTitle}>
-          👤 Nome:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-        </label>
-
-        <label className={styles.eventTitle}>
-          📧 E-mail:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </label>
-
-        <button type="submit" className={styles.button} disabled={loading}>
+    <div className="max-w-2xl mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">📝 Inscrição no Evento</h2>
+      {message && (
+        <p className="text-center mb-4 text-green-600">{message}</p>
+      )}
+      <form
+        onSubmit={handleSubscription}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 space-y-4"
+      >
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            🔍 PrettyName do Evento:
+          </label>
+          <input
+            type="text"
+            value={prettyName}
+            onChange={(e) => setPrettyName(e.target.value)}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            👤 Nome:
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            📧 E-mail:
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-[#8234E9] hover:bg-[#8234E9] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
           {loading ? "Cadastrando..." : "Criar Inscrição"}
         </button>
       </form>
-
       {userId && (
-        <p className={styles.eventDetails}>
-          🏆 Seu link de afiliado: <strong>{`https://revinfinity.pro/subscription/${prettyName}/${userId}`}</strong>
+        <p className="text-center text-gray-700">
+          🏆 Seu link de afiliado:{" "}
+          <strong>{`https://revinfinity.pro/subscription/${prettyName}/${userId}`}</strong>
         </p>
       )}
     </div>
