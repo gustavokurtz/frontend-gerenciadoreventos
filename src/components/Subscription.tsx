@@ -12,7 +12,7 @@ const Subscription = () => {
     email: "",
   });
   const [prettyName, setPrettyName] = useState("");
-  const [userId, setUserId] = useState<number | undefined>();
+  // const [userId, setUserId] = useState<number | undefined>();
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +38,7 @@ const Subscription = () => {
       if (response.status === 200) {
         const userIdFromApi = response.data?.subscriptionNumber;
         if (userIdFromApi) {
-          setUserId(userIdFromApi);
+          // setUserId(userIdFromApi);
           setMessage(
             `✅ Inscrição realizada com sucesso! Seu ID: ${userIdFromApi}`
           );
