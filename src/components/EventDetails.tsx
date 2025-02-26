@@ -17,6 +17,7 @@ const EventDetails = () => {
   const [data, setData] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [copiedEvent, setCopiedEvent] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -39,8 +40,17 @@ const EventDetails = () => {
     fetchEventDetails();
   }, [prettyName]);
 
+  
+
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
+
+  const handleCopy = (text: string | undefined) => {
+    if (!text) return; // Evita tentar copiar um valor undefined
+    navigator.clipboard.writeText(text);
+    setCopiedEvent(text);
+    setTimeout(() => setCopiedEvent(null), 2000);
+  };
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
@@ -50,6 +60,24 @@ const EventDetails = () => {
     <p className="flex items-center">
       📍 <span className="ml-2 font-semibold">{data?.location}</span>
     </p>
+
+
+    <div className="space-y-3 text-gray-700">
+    <p className="flex items-center text-[#8234E9]">
+        📋 prettyName: 
+        <span 
+          onClick={() => handleCopy(prettyName)} 
+          className="ml-2 font-semibold cursor-pointer text-[#8234E9] hover:underline"
+        >
+         {prettyName}
+        </span>
+        {copiedEvent === prettyName && (
+          <span className="ml-2 text-green-500 font-bold">✅ Copiado!</span>
+        )}
+      </p>
+
+ </div>
+    
     
     <p className="flex items-center">
       💰 <span className="ml-2 text-green-600 font-bold">R$ {data?.price.toFixed(2)}</span>
